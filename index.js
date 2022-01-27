@@ -8,7 +8,7 @@ let field = document.querySelector("#field");
 let n = 2;
 const numberCollection = []; //коллекция чисел в произвольно порядке
 let orderNumberCollection = []; // для проверки последовательности нажатия на цифры
-let numbersOfFieldClick = [];
+let numbersOfFieldClick = []; // коллекция чисел при нажатии на ячейку
 
 field.addEventListener("click", onFieldClick);
 
@@ -24,7 +24,7 @@ function onFieldClick(e) {
       e.target.classList.add("active");
     }
   }
-  if (checkEndOfTheGame(numbersOfFieldClick, numberCollection)) {
+  if (checkEndOfTheGameAndRefreshValue(numbersOfFieldClick, numberCollection)) {
     numbersOfFieldClick = [];
     return;
   }
@@ -38,7 +38,10 @@ orderNumberCollection = generateNumbersCollection(
 );
 generateTable(n, numberCollection, field);
 
-function checkEndOfTheGame(numbersOfFieldClick, numberCollection) {
+function checkEndOfTheGameAndRefreshValue(
+  numbersOfFieldClick,
+  numberCollection
+) {
   if (numbersOfFieldClick.length === n * n) {
     field.innerHTML = "";
     n += 1;
